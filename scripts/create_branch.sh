@@ -7,8 +7,16 @@ if [ -z "$ISSUE_NUMBER" ]; then
   exit 1
 fi
 
+REPO_URL=$(git remote get-url origin 2>/dev/null)
+REPO=$(echo "$REPO_URL" | sed -E 's#(git@github.com:|https://github.com/)##' | sed -E 's#\.git$##')
+
+if [ -z "$REPO" ]; then
+  echo "Error: Could not determine GitHub repository from origin remote."
+  exit 1
+fi
+
 # Get the issue title using GitHub CLI
-TITLE=$(gh issue view "$ISSUE_NUMBER" --json title --jq .title 2>/dev/null)
+TITLE=$(gh issue view "$ISSUE_NUMBER" --repo "$REPO" --json title --jq .title 2>/dev/null)
 
 if [ -z "$TITLE" ]; then
   echo "Error: Could not find title for issue #$ISSUE_NUMBER. Make sure you are logged in to 'gh' and have access to the repository."
