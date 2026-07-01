@@ -14,8 +14,30 @@ class MockMixerController : MixerController {
             ),
         ),
     )
+    private val connection = MutableStateFlow(
+        MixerConnectionState(
+            phase = MixerConnectionPhase.Disconnected,
+            message = "Mock controller disconnected",
+        ),
+    )
 
     override val channels: StateFlow<List<MixerChannelState>> = channelState.asStateFlow()
+    override val connectionState: StateFlow<MixerConnectionState> = connection.asStateFlow()
+
+    override suspend fun connect(endpoint: MixerEndpoint) {
+        connection.value = MixerConnectionState(
+            phase = MixerConnectionPhase.Connected,
+            message = "Mock controller connected",
+            endpoint = endpoint,
+        )
+    }
+
+    override fun disconnect() {
+        connection.value = MixerConnectionState(
+            phase = MixerConnectionPhase.Disconnected,
+            message = "Mock controller disconnected",
+        )
+    }
 
     override fun setLevel(channelId: MixerChannelId, level: FaderLevel) {
         channelState.update { channels ->

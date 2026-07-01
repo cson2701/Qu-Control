@@ -17,7 +17,8 @@ These two issues are the first delivery path:
 | Status | Issue                                                   | Title                                                        | Notes                                  |
 |--------|---------------------------------------------------------|--------------------------------------------------------------|----------------------------------------|
 | Done | [#5](https://github.com/cson2701/Qu-Control/issues/5)   | Build baseline desktop app with a single Main LR fader       | First implementation task              |
-| Todo   | [#21](https://github.com/cson2701/Qu-Control/issues/21) | Implement Qu hardware communication for the Main LR fader    | First hardware validation task         |
+| In-progress | [#21](https://github.com/cson2701/Qu-Control/issues/21) | Implement Qu hardware communication for the Main LR fader    | First hardware validation task         |
+| Todo   | TBD                                                     | Add macOS menu bar app mode with one horizontal Main LR fader | Menu bar window shows only one named fader |
 | Todo   | [#6](https://github.com/cson2701/Qu-Control/issues/6)   | Define shared domain models for channels and fader levels    | May be narrowed after `#5`             |
 | Todo   | [#7](https://github.com/cson2701/Qu-Control/issues/7)   | Add mock MixerController for development without hardware    | Supports UI-first work                 |
 | Todo   | [#8](https://github.com/cson2701/Qu-Control/issues/8)   | Build reusable vertical fader composable                     | Core UI building block                 |
@@ -39,22 +40,24 @@ These two issues are the first delivery path:
 
 1. `#5` Build baseline desktop app with a single `Main LR` fader
 2. `#21` Implement Qu hardware communication for the `Main LR` fader
-3. `#8` Build reusable vertical fader composable
-4. `#6` Define shared domain models for channels and fader levels
-5. `#7` Add mock `MixerController` for development without hardware
-6. `#16` Add responsive desktop layout and connection status UI
-7. `#17` Introduce screen-level state holder for mixer actions
-8. `#9` Render default 16-channel fader bank
-9. `#11` Display channel labels and current level values
-10. `#12` Add screen state for visible and hidden channels
-11. `#13` Support removing channels from the visible fader bank
-12. `#14` Support adding hidden channels back without duplicates
-13. `#15` Add reset action for the default 16-channel layout
-14. `#18` Add unit tests for fader state and channel visibility rules
-15. `#20` Persist visible channel layout and connection settings
+3. `TBD` Add macOS menu bar app mode with one horizontal `Main LR` fader
+4. `#8` Build reusable vertical fader composable
+5. `#6` Define shared domain models for channels and fader levels
+6. `#7` Add mock `MixerController` for development without hardware
+7. `#16` Add responsive desktop layout and connection status UI
+8. `#17` Introduce screen-level state holder for mixer actions
+9. `#9` Render default 16-channel fader bank
+10. `#11` Display channel labels and current level values
+11. `#12` Add screen state for visible and hidden channels
+12. `#13` Support removing channels from the visible fader bank
+13. `#14` Support adding hidden channels back without duplicates
+14. `#15` Add reset action for the default 16-channel layout
+15. `#18` Add unit tests for fader state and channel visibility rules
+16. `#20` Persist visible channel layout and connection settings
 
 ## Notes
 
 - Update the `Status` column as work progresses.
+- Replace `TBD` with a GitHub issue link once `gh auth login` is fixed and the menu bar task is filed.
 - If `#21` reveals protocol or architecture constraints, revise the later issues rather than forcing the original plan.
 - `#19` may become redundant once `#21` is implemented and documented.
