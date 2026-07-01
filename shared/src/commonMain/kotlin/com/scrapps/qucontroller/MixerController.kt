@@ -25,8 +25,32 @@ data class MixerChannelState(
     val level: FaderLevel,
 )
 
+data class MixerEndpoint(
+    val host: String,
+    val port: Int = 51325,
+)
+
+enum class MixerConnectionPhase {
+    Disconnected,
+    Connecting,
+    Connected,
+    Error,
+}
+
+data class MixerConnectionState(
+    val phase: MixerConnectionPhase,
+    val message: String,
+    val endpoint: MixerEndpoint? = null,
+)
+
 interface MixerController {
     val channels: StateFlow<List<MixerChannelState>>
+    val connectionState: StateFlow<MixerConnectionState>
+
+    suspend fun connect(endpoint: MixerEndpoint)
+    fun disconnect()
 
     fun setLevel(channelId: MixerChannelId, level: FaderLevel)
 }
+
+expect fun createMixerController(): MixerController

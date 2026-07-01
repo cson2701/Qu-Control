@@ -67,6 +67,7 @@ fun VerticalFader(
             val thumbSize = 28.dp
             val density = LocalDensity.current
             var travelHeightPx by remember { mutableIntStateOf(0) }
+            val thumbSizePx = with(density) { thumbSize.roundToPx() }
 
             fun updateLevel(positionY: Float) {
                 if (travelHeightPx <= 0) {
@@ -98,24 +99,29 @@ fun VerticalFader(
                         .width(14.dp)
                         .height(travelHeight)
                         .clip(RoundedCornerShape(999.dp))
-                        .background(MaterialTheme.colorScheme.surfaceVariant),
+                    .background(MaterialTheme.colorScheme.surfaceVariant),
                 )
 
-                Box(
-                    modifier = Modifier
-                        .width(14.dp)
-                        .height((travelHeight * channel.level.normalized.coerceIn(0f, 1f)))
-                        .align(Alignment.BottomCenter)
-                        .clip(RoundedCornerShape(999.dp))
-                        .background(MaterialTheme.colorScheme.primary),
-                )
-
-                val thumbTravelPx = travelHeightPx - with(density) { thumbSize.roundToPx() }
+                val thumbTravelPx = travelHeightPx - thumbSizePx
                 val thumbOffsetPx = if (thumbTravelPx > 0) {
                     ((1f - channel.level.normalized) * thumbTravelPx).roundToInt()
                 } else {
                     0
                 }
+                val fillHeightPx = if (travelHeightPx > 0) {
+                    (travelHeightPx - (thumbOffsetPx + (thumbSizePx / 2f))).roundToInt().coerceAtLeast(0)
+                } else {
+                    0
+                }
+
+                Box(
+                    modifier = Modifier
+                        .width(14.dp)
+                        .height(with(density) { fillHeightPx.toDp() })
+                        .align(Alignment.BottomCenter)
+                        .clip(RoundedCornerShape(999.dp))
+                        .background(MaterialTheme.colorScheme.primary),
+                )
 
                 Box(
                     modifier = Modifier
