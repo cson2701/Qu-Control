@@ -33,7 +33,7 @@ These two issues are the first delivery path:
 | Todo   | [#18](https://github.com/cson2701/Qu-Control/issues/18) | Add unit tests for fader state and channel visibility rules  | Add alongside shared logic growth      |
 | Todo   | [#19](https://github.com/cson2701/Qu-Control/issues/19) | Define JVM mixer integration boundary for Qu16 communication | Likely absorbed by `#21` findings      |
 | Todo   | [#20](https://github.com/cson2701/Qu-Control/issues/20) | Persist visible channel layout and connection settings       | Later usability task                   |
-| In-progress | [#22](https://github.com/cson2701/Qu-Control/issues/22) | Add local skills to keep ISSUE_TRACKER.md in sync            | Repo workflow automation               |
+| Done | [#22](https://github.com/cson2701/Qu-Control/issues/22) | Add local skills to keep ISSUE_TRACKER.md in sync            | Repo workflow automation               |
 
 ## Suggested Execution Order
 

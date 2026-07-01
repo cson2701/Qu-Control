@@ -1,6 +1,6 @@
 ---
 name: finalize-task
-description: Finalize work on the current branch by pushing it and creating a pull request for this repository. Use this skill when the user asks to finalize a task, push a branch, open a PR, or push and create a PR. Always use the repository helper `./scripts/push.sh` exactly as provided instead of manually running `git push` or `gh pr create`, and update `ISSUE_TRACKER.md` to `Done` when the issue is listed there.
+description: Finalize work on the current branch by marking the matching issue row as `Done` in `ISSUE_TRACKER.md`, then pushing the branch and creating a pull request for this repository. Use this skill when the user asks to finalize a task, push a branch, open a PR, or push and create a PR. Always use the repository helper `./scripts/push.sh` exactly as provided instead of manually running `git push` or `gh pr create`.
 ---
 
 # Finalize Task
@@ -25,6 +25,15 @@ git status --short
 1. If the user does not want to commit, stop and do not run the push helper.
 1. Confirm the current branch is not `main`. If it is `main`, stop and tell the
    user the helper script refuses to create a PR from `main`.
+1. If the repository root contains `ISSUE_TRACKER.md`, update the matching row
+   for this issue to `Done`.
+   Match by GitHub issue number first.
+   If the row is missing, warn the user and continue.
+   If the file is absent, skip this step silently.
+1. If updating `ISSUE_TRACKER.md` changes the working tree, commit that change
+   before pushing. If other issue-related changes are already pending, include
+   the tracker update in the same final commit rather than creating a redundant
+   extra commit.
 1. Run the repository helper exactly as provided:
 
 ```bash
@@ -33,11 +42,6 @@ git status --short
 
 Do not replace this with manual `git push`, `gh pr create`, or `gh pr view`
 commands unless the script is missing or broken.
-1. If the repository root contains `ISSUE_TRACKER.md`, update the matching row
-   for this issue to `Done`.
-   Match by GitHub issue number first.
-   If the row is missing, warn the user and continue.
-   If the file is absent, skip this step silently.
 
 ## Notes
 
@@ -48,8 +52,8 @@ commands unless the script is missing or broken.
 - Do not run `./scripts/push.sh` with a dirty working tree.
 - When a commit is needed first, hand off to `github-issue-commit` rather than
   inventing a separate commit workflow.
-- Update `ISSUE_TRACKER.md` only after the push helper succeeds so the tracker
-  reflects finalized work that has actually been pushed.
+- The tracker must be marked `Done` before pushing and PR creation so the PR
+  includes the finalized tracker state.
 
 ## Reporting
 
