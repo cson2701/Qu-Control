@@ -1,6 +1,6 @@
 ---
 name: finalize-task
-description: Finalize work on the current branch by pushing it and creating a pull request for this repository. Use this skill when the user asks to finalize a task, push a branch, open a PR, or push and create a PR. Always use the repository helper `./scripts/push.sh` exactly as provided instead of manually running `git push` or `gh pr create`.
+description: Finalize work on the current branch by pushing it and creating a pull request for this repository. Use this skill when the user asks to finalize a task, push a branch, open a PR, or push and create a PR. Always use the repository helper `./scripts/push.sh` exactly as provided instead of manually running `git push` or `gh pr create`, and update `ISSUE_TRACKER.md` to `Done` when the issue is listed there.
 ---
 
 # Finalize Task
@@ -33,6 +33,11 @@ git status --short
 
 Do not replace this with manual `git push`, `gh pr create`, or `gh pr view`
 commands unless the script is missing or broken.
+1. If the repository root contains `ISSUE_TRACKER.md`, update the matching row
+   for this issue to `Done`.
+   Match by GitHub issue number first.
+   If the row is missing, warn the user and continue.
+   If the file is absent, skip this step silently.
 
 ## Notes
 
@@ -43,6 +48,8 @@ commands unless the script is missing or broken.
 - Do not run `./scripts/push.sh` with a dirty working tree.
 - When a commit is needed first, hand off to `github-issue-commit` rather than
   inventing a separate commit workflow.
+- Update `ISSUE_TRACKER.md` only after the push helper succeeds so the tracker
+  reflects finalized work that has actually been pushed.
 
 ## Reporting
 

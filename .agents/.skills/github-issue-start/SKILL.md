@@ -1,6 +1,6 @@
 ---
 name: github-issue-start
-description: Start work on a GitHub issue in this repository. Use this skill when the user asks to begin a GitHub issue, work from an issue number, or prepare a fix/feature from a GitHub issue. Always create or switch to the issue branch with `./scripts/create_branch.sh <issue_number>`, analyze the issue, present a concrete plan, and wait for explicit user approval before implementing the plan.
+description: Start work on a GitHub issue in this repository. Use this skill when the user asks to begin a GitHub issue, work from an issue number, or prepare a fix/feature from a GitHub issue. Always create or switch to the issue branch with `./scripts/create_branch.sh <issue_number>`, update `ISSUE_TRACKER.md` to `In-progress` when the issue is listed there, analyze the issue, present a concrete plan, and wait for explicit user approval before implementing the plan.
 ---
 
 # GitHub Issue Start
@@ -20,6 +20,12 @@ repository.
 Do not replace this with a manual branch naming flow unless the script is
 missing or broken.
 
+1. If the repository root contains `ISSUE_TRACKER.md`, update the matching row
+   for this issue to `In-progress`.
+   Match by GitHub issue number first, for example `[#21](...)`.
+   If the row is missing, warn the user and continue.
+   If the file is absent, skip this step silently.
+
 1. Read the issue details with `gh issue view`, including at minimum the title,
 body, and labels. Read comments too when they affect scope or acceptance
 criteria.
@@ -37,6 +43,8 @@ Use this sequence:
 gh issue view <issue_number> --json title,body,labels,assignees
 gh issue view <issue_number> --comments
 ```
+
+If `ISSUE_TRACKER.md` exists, update it before presenting the plan.
 
 Then inspect the codebase paths that are most likely involved. Prefer `rg` for
 search and read only the files needed to understand the change.
