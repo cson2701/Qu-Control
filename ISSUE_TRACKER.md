@@ -16,7 +16,7 @@ These two issues are the first delivery path:
 
 | Status | Issue                                                   | Title                                                        | Notes                                  |
 |--------|---------------------------------------------------------|--------------------------------------------------------------|----------------------------------------|
-| Todo   | [#5](https://github.com/cson2701/Qu-Control/issues/5)   | Build baseline desktop app with a single Main LR fader       | First implementation task              |
+| In-progress | [#5](https://github.com/cson2701/Qu-Control/issues/5)   | Build baseline desktop app with a single Main LR fader       | First implementation task              |
 | Todo   | [#21](https://github.com/cson2701/Qu-Control/issues/21) | Implement Qu hardware communication for the Main LR fader    | First hardware validation task         |
 | Todo   | [#6](https://github.com/cson2701/Qu-Control/issues/6)   | Define shared domain models for channels and fader levels    | May be narrowed after `#5`             |
 | Todo   | [#7](https://github.com/cson2701/Qu-Control/issues/7)   | Add mock MixerController for development without hardware    | Supports UI-first work                 |
